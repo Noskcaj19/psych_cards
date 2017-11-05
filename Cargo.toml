@@ -1,0 +1,14 @@
+[package]
+authors = ["Noskcaj <kcajdev@gmail.com>"]
+name = "psych_flashcards"
+version = "0.1.0"
+
+[dependencies]
+colored = "1.6.0"
+quick-error = "1.2.1"
+regex = "0.2.2"
+reqwest = "0.8.0"
+select = "0.4.2"
+
+[dependencies.iterm2]
+git = "https://github.com/Noskcaj19/iterm2.git"
