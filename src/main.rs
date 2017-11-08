@@ -126,24 +126,26 @@ fn display_term(term: &str) -> Result<(), ProgramError> {
 
 fn run() -> Result<(), ProgramError> {
     let file = std::env::args().nth(1).ok_or(ProgramError::Arg)?;
-    let offset = std::env::args()
+    let start = std::env::args()
         .nth(2)
         .and_then(|a| a.parse().ok())
-        .unwrap_or(0);
+        .unwrap_or(1);
+    if start == 0 {
+        return Err(ProgramError::Arg);
+    }
     let input = File::open(file)?;
     let buffer = BufReader::new(input);
 
+    let lines: Vec<_> = buffer
+        .lines()
+        .skip(start - 1)
+        .filter_map(|x| x.ok())
+        .collect();
 
-    let lines: Vec<_> = buffer.lines().skip(offset).filter_map(|x| x.ok()).collect();
-    let max = lines.len() + offset - 1;
+    let max = lines.len() + start - 1;
 
-    for (index, line) in lines.iter().enumerate() {
-        println!(
-            "{} ({}/{})",
-            line.yellow().italic().underline(),
-            index + offset,
-            max
-        );
+    for (index, line) in (start..).zip(lines.iter()) {
+        println!("{} ({}/{})", line.yellow().italic().underline(), index, max);
 
         display_term(&line)?;
 
