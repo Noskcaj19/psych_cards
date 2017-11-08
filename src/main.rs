@@ -135,10 +135,15 @@ fn run() -> Result<(), ProgramError> {
 
 
     let lines: Vec<_> = buffer.lines().skip(offset).filter_map(|x| x.ok()).collect();
-    let max = lines.len();
+    let max = lines.len() + offset - 1;
 
     for (index, line) in lines.iter().enumerate() {
-        println!("{} ({}/{})", line.yellow().italic().underline(), index, max);
+        println!(
+            "{} ({}/{})",
+            line.yellow().italic().underline(),
+            index + offset,
+            max
+        );
 
         display_term(&line)?;
 
