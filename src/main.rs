@@ -149,7 +149,7 @@ fn run() -> Result<(), ProgramError> {
 
         display_term(&line)?;
 
-        print!(">");
+        println!(">");
         let mut buffer = String::new();
         std::io::stdin().read_line(&mut buffer)?;
     }
