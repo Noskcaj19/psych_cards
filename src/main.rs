@@ -51,9 +51,10 @@ struct Definition {
 
 fn document_from_url(url: &str) -> Result<Document, ProgramError> {
     let mut res = reqwest::get(url)?;
-    let mut body = String::new();
-    res.read_to_string(&mut body)?;
-    Ok(Document::from(body.as_str()))
+    let mut buf = Vec::new();
+    res.read_to_end(&mut buf)?;
+    let body = String::from_utf8_lossy(&buf);
+    Ok(Document::from(body.to_string().as_str()))
 }
 
 fn get_definition_links(term: &str) -> Result<Vec<DefinitionLink>, ProgramError> {
