@@ -18,14 +18,14 @@ quick_error! {
     pub enum ProgramError {
         Io(err: std::io::Error) {
             from()
-            description("io error")
-            display("I/O error: {}", err)
-            cause(err)
+                description("io error")
+                display("I/O error: {}", err)
+                cause(err)
         }
         Url(err: reqwest::Error) {
             from()
-            description("Url fetch error")
-            cause(err)
+                description("Url fetch error")
+                cause(err)
         }
         Parse {
             description("Error parsing document")
