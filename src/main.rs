@@ -62,7 +62,7 @@ fn get_definition_links(term: &str) -> Result<Vec<DefinitionLink>, ProgramError>
         "https://www.alleydog.com/search-results.php?q={}",
         term
     ))?;
-    let definition_div = doc.find(Class("definition"))
+    let definition_div = doc.find(Class("results"))
         .next()
         .ok_or(ProgramError::Parse)?;
 
