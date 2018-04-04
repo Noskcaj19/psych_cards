@@ -6,12 +6,11 @@ extern crate select;
 
 use colored::*;
 
-use std::io::{BufRead, BufReader, Read};
 use std::fs::File;
+use std::io::{BufRead, BufReader, Read};
 
 use select::document::Document;
 use select::predicate::{Class, Name};
-
 
 quick_error! {
     #[derive(Debug)]
@@ -48,7 +47,6 @@ struct Definition {
     text: String,
 }
 
-
 fn document_from_url(url: &str) -> Result<Document, ProgramError> {
     let mut res = reqwest::get(url)?;
     let mut buf = Vec::new();
@@ -80,7 +78,6 @@ fn get_definition_links(term: &str) -> Result<Vec<DefinitionLink>, ProgramError>
     }
     Ok(definitions)
 }
-
 
 fn get_definition(link: &DefinitionLink) -> Result<Definition, ProgramError> {
     let doc = document_from_url(&link.href)?;
@@ -123,7 +120,6 @@ fn display_term(term: &str) -> Result<(), ProgramError> {
     }
     Ok(())
 }
-
 
 fn run() -> Result<(), ProgramError> {
     let file = std::env::args().nth(1).ok_or(ProgramError::Arg)?;
